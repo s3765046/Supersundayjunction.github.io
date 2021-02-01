@@ -1,0 +1,219 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta charset='utf-8' />
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+<link rel="stylesheet" type="text/css" href="S3765046_style.css">
+ <title> Major Bike Accidents Sites Beyween Super Sunday's South Promenade and Sandridge Trail Junction , Lakshay Gupta</title>
+</head>
+
+<body>
+
+<script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
+<link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+<div id='map'></div>
+<!-- Tittle and Hover over-->
+<div class='map-overlay' id='legend'></div>
+<div class='map-overlay' id='title'>
+  <h2>Major Bike Accidents Sites Beyween Super Sunday's South Promenade and Sandridge Trail Junction </h2>
+  <div id='info'>
+    <div id='info'>
+      <p>Hover over Crash zones, Intersection points and Off Road Trail. </p>
+ <p>Scroll Below for Further Info ↓ </p>
+<!-- Source-->
+    </div>
+  </div>
+ 
+  
+  <div style="display: none">
+  </div>
+
+<!-- Things To do message-->
+  <div class="blue bluebutton">
+    <h3>If Something Goes Wrong</h3>
+    <p>1.Get out of danger</p>
+    <p>2.Call for help</p>
+    <p>3.Exchange contact details</p>
+    <p>4.Get witness details</p>
+    <p>5.Take pictures</p>
+    <p>6.Make a police report</p>
+    <p>7.Get checked out</p>
+
+    <h4> Emergency Contacts</h4>
+    <p> Royal Melbourne Hospital- (03) 9342 7009
+    </p>
+
+    <p> Victoria Police Centre- 13 14 44</p>
+    <p>MFB Fire Station- (03) 9662 2311</p>
+<!-- Things To do message,index and scale bar-->
+
+<button onclick="window.location.href='https://data.melbourne.vic.gov.au/Transport/Super-Sunday-Bike-Count/v9mu-dvfu'">Data Sourced from Department of Transport Open data</button>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibGFrc2hheTI0IiwiYSI6ImNrMjNiY3M2cDIyczgzZG1sY3pwOGRyZWIifQ.0PlM8bntLZR5crrJ9R_OJg';
+// Set bounds to New York, New York
+var bounds = [
+[144.954014, -37.826726], // Southwest coordinates
+[144.957706, -37.822876] // Northeast coordinates
+];
+var map = new mapboxgl.Map({
+  container: 'map',
+  style: 'mapbox://styles/lakshay24/ck24cxp4x36w61coec76fm6en', 
+center: [144.956177, -37.825516],
+zoom: 1,
+maxBounds: bounds // Sets bounds as max
+
+});
+
+// The 'building' layer in the mapbox-streets vector source contains building-height
+// data from OpenStreetMap.
+map.on('load', function () {
+// Insert the layer beneath any symbol layer.
+var layers = map.getStyle().layers;
+ 
+var labelLayerId;
+for (var i = 0; i < layers.length; i++) {
+if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+labelLayerId = layers[i].id;
+break;
+}
+}
+ 
+map.addLayer(
+{
+'id': '3d-buildings',
+'source': 'composite',
+'source-layer': 'building',
+'filter': ['==', 'extrude', 'true'],
+'type': 'fill-extrusion',
+'minzoom': 15,
+'paint': {
+'fill-extrusion-color': '#aaa',
+ 
+// use an 'interpolate' expression to add a smooth transition effect to the
+// buildings as the user zooms in
+'fill-extrusion-height': [
+'interpolate',
+['linear'],
+['zoom'],
+15,
+0,
+15.05,
+['get', 'height']
+],
+'fill-extrusion-base': [
+'interpolate',
+['linear'],
+['zoom'],
+15,
+0,
+15.05,
+['get', 'min_height']
+],
+'fill-extrusion-opacity': 0.6
+}
+},
+labelLayerId
+);
+});
+
+
+map.addControl(new mapboxgl.NavigationControl());
+map.on('load', function() {
+
+  var layers = ['Off Road Trail ', 'Strategic Corridor'];
+  var colors = ['#7d856b', '#091603'];
+  for (i = 0; i < layers.length; i++) {
+    var layer = layers[i];
+    var color = colors[i];
+    var item = document.createElement('div');
+    var key = document.createElement('span');
+    key.className = 'legend-key';
+    key.style.backgroundColor = color;
+    var value = document.createElement('span');
+    value.innerHTML = layer;
+    item.appendChild(key);
+    item.appendChild(value);
+    legend.appendChild(item);
+  }
+  map.addControl(new mapboxgl.ScaleControl(),"bottom-left");
+});
+map.on('mousemove', function(i) {
+
+  var Accidentinfo = map.queryRenderedFeatures(i.point, {
+    layers: ['Crash Zones']
+  });
+
+
+});
+
+
+map.on('mouseenter', 'Crash Zones', function() {
+  map.getCanvas().style.cursor = 'pointer';
+});
+
+
+
+map.on('mouseleave', 'Crash Zones', function() {
+  map.getCanvas().style.cursor = '';
+});
+map.on('click', 'Crash Zones', function(e) {
+  new mapboxgl.Popup()
+
+    .setLngLat(e.lngLat)
+    .setHTML("Accident type-" + e.features[0].properties.ACCIDENT_TYPE + ", Police availability-" + e.features[0].properties.POLICE_ATTEND + ", Severity-" + e.features[0].properties.SEVERITY )
+    .addTo(map);
+});
+
+map.on('mousemove', function(i) {
+
+  var Accidentinfo = map.queryRenderedFeatures(i.point, {
+    layers: ['Crash Zones']
+  });
+
+
+});
+
+
+map.on('mouseenter', 'super sunday bike Prominent Intersection', function() {
+  map.getCanvas().style.cursor = 'pointer';
+});
+
+
+map.on('mouseleave', 'super sunday bike Prominent Intersection', function() {
+  map.getCanvas().style.cursor = '';
+});
+map.on('click', 'super sunday bike Prominent Intersection', function(e) {
+  new mapboxgl.Popup()
+
+    .setLngLat(e.lngLat)
+    .setHTML("Intersection-" + e.features[0].properties.description+ "<br><img src='https://www.secureparking.com.au/-/media/secure-parking/images/offers-and-events/1440x1920/melbourne-docklands.jpg?' width=170px/>")
+    .addTo(map);
+});
+
+map.on('mouseenter', 'Bike Trail Types', function() {
+  map.getCanvas().style.cursor = 'pointer';
+});
+
+map.on('mouseleave', 'Bike Trail Types', function() {
+  map.getCanvas().style.cursor = '';
+});
+map.on('click', 'Bike Trail Types', function(e) {
+  new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML("Type of Trail - " + e.features[0].properties.type + "<br><img src='https://www.vineyardsquarehotel.com/wp-content/uploads/2018/08/marthas-vineyard-bike-trails.jpg' width=120px/>")
+    .addTo(map)
+});
+$(document).ready(function() {
+  $('.bluebutton').hide().before('<a href="#" id="toggle-bluebutton" class="button-tog">Return Information</a>');
+  $('a#toggle-bluebutton').click(function() {
+    $('.bluebutton').slideToggle(500);
+    return false;
+  });
+});
+
+</script>
+
+</body>
+
+</html>
