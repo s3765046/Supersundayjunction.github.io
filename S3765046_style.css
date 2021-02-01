@@ -1,0 +1,118 @@
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 50%;
+}
+
+.map-overlay {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: rgba(255, 255, 255, 0.8);
+  margin-right: 0;
+  font-family: Adobe Devnagri, Adobe Devnagri;
+  overflow: auto;
+
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Adobe Devnagri', Adobe Devnagri;
+}
+
+#legend {
+  padding: 60px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  line-height: 20px;
+  height: 100px;
+  margin-bottom: 20px;
+  width: 60px;
+  border-radius: 20%;
+}
+
+.legend-key {
+  display: inline-block;
+  border-radius: 30%;
+  width: 40px;
+  height: 10px;
+  margin-right: 5px;
+}
+
+#title {
+  top: 0;
+  right: 50%;
+  height: 100%;
+  margin-top: ;
+  width: 50%;
+  font-size: 28px;
+}
+
+h2 {
+  margin: 10px;
+  font-size: 0.9em;
+  text-align: left;
+}
+
+p {
+  margin: 10px;
+  font-size: 0.4em;
+  text-align: left;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: 'Adobe devnagri', Adobe devnagri;
+}
+
+p {
+  margin: 5px;
+  font-size: 0.8em;
+  text-align: left;
+}
+
+a {
+  margin: 5px;
+  font-size: 0.5em;
+  text-align: left;
+}
+
+
+.blue {
+  border: 10px solid #eee;
+  background: #e5e2bf;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.bluebutton p {
+  font-size: 18px;
+  padding: 7px;
+}
+
+.bluebutton h3 {
+  text-align: left;
+  padding: 5px 0px 0px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.bluebutton h4 {
+  text-align: left;
+  padding: 5px 0px 8px 0;
+  font-size: 20px;
+  font-weight: bold;
+}
